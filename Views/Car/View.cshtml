@@ -1,0 +1,46 @@
+﻿@model IEnumerable<ImportExcelSql.Models.Car>
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<h1>View</h1>
+
+<p>
+    <a asp-action="Create">Criar Novo</a>
+</p>
+<table class="table" name="stafflist" id="stafflist">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.carName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.bodyStyle)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.Name)*@
+                    @Html.TextBoxFor(modelItem => item.carName, new { @class = "form-control" })
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.Adress)*@
+                    @Html.TextBoxFor(modelItem => item.bodyStyle, new { @class = "form-control" })
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.carId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.carId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.carId">Delete</a>
+                </td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>

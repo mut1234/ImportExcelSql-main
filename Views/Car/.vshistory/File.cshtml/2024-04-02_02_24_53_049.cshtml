@@ -1,0 +1,151 @@
+﻿@model ImportExcelSql.Models.Car
+@{
+    ViewData["Title"] = "File";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    h1 {
+        padding: 5px;
+        font-weight: 500;
+    }
+</style>
+<h1>File Upload</h1>
+<div class="row">
+    <form asp-action="File" class="text-left form-validate" enctype="multipart/form-data">
+        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8">
+            <div class="file-select-button" id="fileName">Upload Excel File</div>
+            <input asp-for="CsvFile" type="file" id="chooseFile">
+        </div>
+        <div class="row">
+            <br />
+        </div>
+        <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
+            <button type="submit" class="btn btn-primary" id="submitButton" disabled>Read Excel File</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Get the file input element
+    const fileInput = document.getElementById('chooseFile');
+
+    // Get the submit button element
+    const submitButton = document.getElementById('submitButton');
+
+    // Add event listener to file input element
+    fileInput.addEventListener('change', function () {
+        // Check if a file is selected
+        if (fileInput.files.length > 0) {
+            // Enable the submit button if a file is selected
+            submitButton.disabled = false;
+        } else {
+            // Disable the submit button if no file is selected
+            submitButton.disabled = true;
+        }
+    });
+</script>
+<br />
+<br />
+<div class="row">
+    <form method="post" asp-controller="Car" asp-action="ImportOnly" class="text-left form-validate">
+        <h1>
+            Display Excel File Records
+        </h1>
+        <table class="table table-active table-bordered" width="100" name="StaffList" id="StaffList">
+            <thead>
+                <tr>
+                    <th>Car Name</th>
+                    <th>Door Number</th>
+                    <th>Body Style</th>
+                    <th>Engine Location</th>
+                    <th>Number Of Cylinders</th>
+                    <th>Horse Power</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ int i = 0;}
+                @foreach (var item in Model.Car)
+                {
+                    <tr>
+                        <td>
+                            <input asp-for="@item.carName" name="Model.EmployeeListViewModel[@i].carName" class="form-control" />
+                        </td>
+                        <td>
+                            <input asp-for="@item.doorNumber" name="Model.EmployeeListViewModel[@i].doorNumber" class="form-control" />
+                        </td>
+                        <td>
+                            <input asp-for="@item.bodyStyle" name="Model.EmployeeListViewModel[@i].bodyStyle" class="form-control" />
+                        </td>
+                        <td>
+                            <input asp-for="@item.engineLocation" name="Model.EmployeeListViewModel[@i].engineLocation" class="form-control" />
+                        </td>                   
+                        <td>
+                            <input asp-for="@item.numberOfCylinders" name="Model.EmployeeListViewModel[@i].numberOfCylinders" class="form-control" />
+                        </td>
+                        <td>
+                            <input asp-for="@item.horsePower" name="Model.EmployeeListViewModel[@i].horsePower" class="form-control" />
+                        </td>
+                        <td>
+                            <input asp-for="@item.price" name="Model.EmployeeListViewModel[@i].price" class="form-control" />
+                        </td>
+                    </tr>
+                    i++;
+                }
+            </tbody>
+        </table>
+       
+    </form>
+</div>
+
+<div class="row">
+    <form method="get" asp-controller="Car" asp-action="FilterCars" class="text-left form-validate">
+        <h1>
+            Filter Cars
+        </h1>
+        <div class="form-group">
+            <label for="make">Make:</label>
+            <input type="text" class="form-control" id="make" name="make" placeholder="Enter make">
+        </div>
+        <div class="form-group">
+            <label for="doorNumber">Number of Doors:</label>
+            <input type="text" class="form-control" id="numberofdoors" name="numberofdoors" placeholder="Enter number of doors">
+        </div>
+        <div class="form-group">
+            <label for="bodyStyle">Body Style:</label>
+            <input type="text" class="form-control" id="bodystyle" name="bodystyle" placeholder="Enter body style">
+        </div>
+        <div class="form-group">
+            <label for="numberOfCylinders">Number Of Cylinders:</label>
+            <input type="text" class="form-control" id="numofcylinders" name="numofcylinders" placeholder="Enter number of cylinders">
+        </div>
+        <div class="form-group">
+            <label for="horsePower">Min Horsepower:</label>
+            <input type="number" class="form-control" id="minHorsePower" name="minHorsePower" placeholder="Enter min horsepower">
+        </div>
+        <div class="form-group">
+            <label for="horsePower">Max Horsepower:</label>
+            <input type="number" class="form-control" id="maxHorsePower" name="maxHorsePower" placeholder="Enter max horsepower">
+        </div>
+        <div class="form-group">
+            <label for="MinPrice">MinPrice</label>
+            <input type="number" class="form-control" id="MinPrice" name="MinPrice" placeholder="Enter Min Price">
+        </div>
+        <div class="form-group">
+            <label for="MaxPrice">MaxPrice</label>
+            <input type="number" class="form-control" id="MaxPrice" name="MaxPrice" placeholder="Enter Max Price">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Filter Cars</button>
+
+           
+
+    </form>
+</div>
+
+
+@* <div class="row">
+    <form method="post" asp-controller="Car" asp-action="FilterCars" class="text-left form-validate">
+       
+    </form>
+</div> *@

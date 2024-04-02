@@ -1,0 +1,49 @@
+﻿@model ImportExcelSql.Models.FileUploadViewModel
+@{
+    ViewData["Title"] = "File";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    h1 {
+        padding: 5px;
+        font-weight: 500;
+    }
+</style>
+<h1>File Upload</h1>
+<div class="row">
+    <form asp-action="File" class="text-left form-validate" enctype="multipart/form-data">
+        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8">
+            <div class="file-select-button" id="fileName">Upload Excel File</div>
+            <input asp-for="CsvFile" type="file" id="chooseFile">
+        </div>
+        <div class="row">
+            <br />
+        </div>
+        <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
+            <button type="submit" class="btn btn-primary" id="submitButton" disabled>Read Excel File</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Get the file input element
+    const fileInput = document.getElementById('chooseFile');
+
+    // Get the submit button element
+    const submitButton = document.getElementById('submitButton');
+
+    // Add event listener to file input element
+    fileInput.addEventListener('change', function () {
+        // Check if a file is selected
+        if (fileInput.files.length > 0) {
+            // Enable the submit button if a file is selected
+            submitButton.disabled = false;
+        } else {
+            // Disable the submit button if no file is selected
+            submitButton.disabled = true;
+        }
+    });
+</script>
+<br />
+<br />
+

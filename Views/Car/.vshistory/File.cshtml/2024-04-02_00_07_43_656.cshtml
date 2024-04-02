@@ -1,0 +1,78 @@
+﻿@model ImportExcelSql.Models.FileUploadViewModel
+@{
+    ViewData["Title"] = "File";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>File Upload</h1>
+
+<div class="row">
+    <form asp-action="File" class="text-left form-validate" enctype="multipart/form-data">
+        <div class="col-sm-8 col-md-8 col-lg-8 col-xl-8">
+            <div class="file-select-button" id="fileName">Upload Excel File</div>
+            <input asp-for="CsvFile" type="file" id="chooseFile">
+        </div>
+        <div class="row">
+            <br />
+        </div>
+        <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
+            <button type="submit" class="btn btn-primary" id="submitButton" disabled>Read Excel File</button>
+        </div>
+    </form>
+</div>
+
+@if (Model.CarListViewModel.Any())
+{
+    <h2>Uploaded Cars Data</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Car Name</th>
+                <th>Door Number</th>
+                <th>Body Style</th>
+                <th>Engine Location</th>
+                <th>Number Of Cylinders</th>
+                <th>Horse Power</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var car in Model.CarListViewModel)
+            {
+                <tr>
+                    <td>@car.carName</td>
+                    <td>@car.doorNumber</td>
+                    <td>@car.bodyStyle</td>
+                    <td>@car.engineLocation</td>
+                    <td>@car.numberOfCylinders</td>
+                    <td>@car.horsePower</td>
+                    <td>@car.price</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<div class="row">
+    <form method="post" asp-controller="Car" asp-action="FilterCars" class="text-left form-validate">
+        <h1>
+            Filter Cars
+        </h1>
+        <div class="form-group">
+            <label for="make">Make:</label>
+            <input type="text" class="form-control" id="make" name="make" placeholder="Enter make">
+        </div>
+        <div class="form-group">
+            <label for="minHorsePower">Min Horsepower:</label>
+            <input type="number" class="form-control" id="minHorsePower" name="minHorsePower" placeholder="Enter min horsepower">
+        </div>
+        <div class="form-group">
+            <label for="maxHorsePower">Max Horsepower:</label>
+            <input type="number" class="form-control" id="maxHorsePower" name="maxHorsePower" placeholder="Enter max horsepower">
+        </div>
+        <!-- Add similar input fields for price range, number of doors, and number of cylinders -->
+        <button type="submit" class="btn btn-primary">Filter Cars</button>
+    </form>
+</div>
+
+
